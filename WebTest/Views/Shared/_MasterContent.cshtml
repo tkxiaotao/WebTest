@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title </title>
+    @*-----------------加载公共样式表-----------------*@
+    @*<link href="~/Content/styles/Common.css" rel="stylesheet" />*@
+    @*-----------------加载捆绑的EasyUI样式表-----------------*@
+    @*@Styles.Render("~/Content/scripts/jqueryUI/EasyUI/css")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery") *@
+    <link href="~/Content/scripts/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/scripts/EasyUI/themes/icon.css" rel="stylesheet" />
+    <link href="~/Content/scripts/EasyUI/themes/icon-extent.css" rel="stylesheet" />
+    @*-----------------Header区域:用来引入其他样式-----------------*@
+    @RenderSection("Header", required: false)
+</head>
+<body>
+    @*-----------------定义一个容器面板,设置为固定高度-----------------*@
+    <div id="easyui-panel" class="easyui-panel" fit="true">
+        @RenderBody()
+    </div>
+    @*-----------------加载jQuery脚本-----------------*@
+    <script src="~/Content/scripts/jquery-1.10.2.min.js"></script>
+    @*-----------------加载EasyUI脚本-----------------*@
+    @*@Scripts.Render("~/bundles/EasyUI")*@
+    <script src="~/Content/scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/Content/scripts/EasyUI/src/jquery.tabs.js"></script>
+    <script src="~/Content/scripts/EasyUI/easyui-extent.js"></script>
+    <script src="~/Content/scripts/EasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script src="~/Content/scripts/EasyUI/easyui-mask.js"></script>
+
+    @*-----------------定义自定义脚本区域-----------------*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

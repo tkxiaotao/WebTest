@@ -1,0 +1,51 @@
+﻿.icon-in{
+	background:url('icons/arrow_in_longer.png') no-repeat center center;
+}
+.icon-out{
+	background:url('icons/arrow_out_longer.png') no-repeat center center;
+}
+.icon-yen{
+	background:url('icons/money_yen.png') no-repeat center center;
+}
+.icon-calculator{
+	background:url('icons/calculator.png') no-repeat center center;
+}
+.icon-phone{
+	background:url('icons/phone.png') no-repeat center center;
+}
+.icon-telephone{
+	background:url('icons/telephone.png') no-repeat center center;
+}
+.icon-china{
+	background:url('icons/flag_cn.png') no-repeat center center;
+}
+.icon-imExcel{
+	background:url('icons/excel_imports.png') no-repeat center center;
+}
+.icon-exExcel{
+	background:url('icons/excel_exports.png') no-repeat center center;
+}
+.icon-excel{
+	background:url('icons/page_excel.png') no-repeat center center;
+}
+.icon-finance{
+	background:url('icons/finance.png') no-repeat center center;
+}
+.icon-user{
+	background:url('icons/user.png') no-repeat center center;
+}
+.icon-plugin{
+	background:url('icons/plugin.png') no-repeat center center;
+}
+.icon-widgets{
+	background:url('icons/widgets.png') no-repeat center center;
+}
+.icon-percent{
+	background:url('icons/format_percentage.png') no-repeat center center;
+}
+.icon-document{
+	background:url('icons/document_notes.png') no-repeat center center;
+}
+.icon-price{
+	background:url('icons/price_watch.png') no-repeat center center;
+}

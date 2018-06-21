@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Content/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Content/js/vs_mobile.js"></script>
+<link href="~/Content/css/common.css" rel="stylesheet" />
+
+<title>雅量云-API管理</title>
+
+
+<style type="text/css">
+html, body { height: 100%; margin: 0px; padding: 0px; width: 100%; }
+.api {
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+.api ul {
+	border-left-width: 7px;
+	border-left-style: solid;
+	border-left-color: hsla(0,0%,90%,1.00);
+	height: 100%;
+	display: table-cell;
+	padding: 0px;
+}
+.api .version {
+	width: 180px;
+}
+.api .class {
+	width: 180px;
+}
+.api .item {
+	width: 220px;
+}
+.api .list { border-right-width: 1px; border-right-style: solid; border-right-color: hsla(0,0%,80%,1.00); background-color: hsla(0,0%,96%,1.00); min-width: 100px; }
+.api .list span {
+	display: block;
+	text-align: center;
+	font-size: 24px;
+	line-height: 50px;
+	color: hsla(0,0%,80%,1.00);
+}
+.api .list li { color: #666; line-height: 45px; border-top-width: 1px; border-top-style: dotted; border-top-color: #D2D2D2; display: block; padding-right: 10px; padding-left: 20px; text-align: left; }
+.api .list li.active { background-color: #FFF; }
+.api .list li a { color: #666; display: block; text-decoration: none; }
+.api .list li a:hover { color: #9C0; }
+.api .list a.active { font-weight: bold; color: #9C0; }
+.api .list a.add { color: #CCC; }
+.api .detail { padding-left: 40px; padding-right: 40px; }
+.api .list i { float: right; color: #CCC; text-decoration: none; font-style: normal; }
+.api .list i b,.api .list i u { cursor: pointer; font-weight: normal; line-height: 45px; display: inline; padding-right: 12px; padding-left: 12px; opacity:0.3; }
+.api .list i b:hover,.api .list i u:hover { opacity:1; }
+.api .list i b { background-image: url(img/btn_edit.png); background-repeat: no-repeat; background-position: center center; }
+.api .list i u { background-image: url(img/btn_delete.png); background-repeat: no-repeat; background-position: center center; }
+
+    #select {
+        margin-top:10px;
+    }
+</style>
+
+<html>
+<body>
+
+<table class="FormTable">
+	<tr>
+		<th>功能名称</th>
+		<td><input name="ctl00$Main$Name" readonly="readonly" type="text" value="客流人数统计" id="Name" class="Textbox" data-tips="接口功能名称" data-validator="required();length(2,20);" style="width:200px;" /></td>
+	</tr>
+	<tr>
+		<th>请求路径</th>     @*http://localhost:64264/api/Dahua/DahuaData*@   @*http://106.14.79.41:7433/api/Dahua/DahuaData*@
+		<td><input name="ctl00$Main$Url" readonly="readonly" type="text" value="http://106.14.79.41:7433/api/Dahua/DahuaTest" id="Url" class="Textbox" data-tips="必须相对根目录，如：/user/login.ashx" data-validator="required();length(1,200);" style="width:416px;" /></td>
+	</tr>
+	<tr>
+		<th>请求方式</th>
+		<td>
+            <select id="select">
+                @*<option value="Get">Get</option>*@
+                <option value="Post">Post</option>
+            </select>
+		</td>
+	</tr>
+	<tr>
+		<th>请求参数</th>
+		<td>
+            <input name="ctl00$Main$Name" type="text" value="" id="key" class="Textbox" data-tips="key" style="width:200px;" />
+            <input name="ctl00$Main$Name" type="text" value="" id="deviceid" class="Textbox" data-tips="deviceid" style="width:200px;" />
+		</td>
+	</tr>
+    <tr>
+        <td></td>
+        <td>
+            <input name="ctl00$Main$Name" type="text" value="" id="InNum" class="Textbox" data-tips="InNum" style="width:200px;" />
+            <input name="ctl00$Main$Name" type="text" value="" id="OutNum" class="Textbox" data-tips="OutNum" style="width:200px;" />
+        </td>
+    </tr>
+	<tr>
+		<th>返回结果</th>
+		<td>
+            <textarea name="ctl00$Main$Return" id="Return" class="Textarea" data-tips="接口返回的json格式样本，如：{&quot;status&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;}" data-validator="required();" style="height:222px;width:500px;">
+            </textarea>
+		</td>
+	</tr>
+	
+	<tr>
+		<th>&nbsp;</th>
+		<td>
+            <input type="submit" name="ctl00$Main$Submit" value="提交" id="Submit" class="Button Button_NoIcon" style="width:150px;" /></td>
+	</tr>
+</table>
+</body>
+    <script type="text/javascript">
+        $(function () {
+            $("#Submit").click(function () {
+                var urls = $("#Url").val();
+                var types = $("#select").val();
+                var times = new Date().Format("yyyy-MM-dd hh:mm:ss");
+                var datas = { InNum: $("#InNum").val(), OutNum: $("#OutNum").val(), DataDateTime: times };
+                //var Params = $("#Param").val();
+                //alert(times);
+                PostData(urls, types, datas);
+
+                start();
+            });
+        });
+
+
+        function start() {
+            document.getElementById("Submit").disabled = true;
+            document.getElementById("Submit").value = 10;
+            window.setTimeout("tick()", 1000);
+        }
+        function tick() {
+            var time = new Number(document.getElementById("Submit").value);
+            if (time > 0) {
+                document.getElementById("Submit").value = time - 1;
+                window.setTimeout("tick()", 1000);
+            }
+            else {
+                document.getElementById("Submit").disabled = false;
+                document.getElementById("Submit").value = "提交";
+            }
+        }
+
+
+
+        function PostData(urls, types, datas)
+        {
+            $.ajax({
+                //url: "http://106.14.79.41:7433/api/Dahua/DahuaData",
+                //url: "http://localhost:64264/api/Dahua/DahuaData",
+                url:urls,
+                type:types,
+                data: {
+                    "key": $("#key").val(),
+                    "deviceid": $("#deviceid").val(),
+                    "data": JSON.stringify(datas)
+                },
+                datatype: "json",
+                success: function (data) {
+                    //var result = $.parseJSON(data);
+                    alert(data);
+                    //$.messager.alert('提示', data);
+                    $("#Return").text(data);
+                }
+            });
+        }
+
+
+        Date.prototype.Format = function (fmt) { // author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, // 月份
+                "d+": this.getDate(), // 日
+                "h+": this.getHours(), // 小时
+                "m+": this.getMinutes(), // 分
+                "s+": this.getSeconds(), // 秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+                "S": this.getMilliseconds() // 毫秒
+            };
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+    </script>
+</html>
