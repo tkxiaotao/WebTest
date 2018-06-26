@@ -114,9 +114,34 @@ html, body { height: 100%; margin: 0px; padding: 0px; width: 100%; }
                 var urls = $("#Url").val();
                 var types = $("#select").val();
                 var times = new Date().Format("yyyy-MM-dd hh:mm:ss");
-                var datas = { InNum: $("#InNum").val(), OutNum: $("#OutNum").val(), DataDateTime: times };
+                var inNum=$("#InNum").val();
+                var OutNum = $("#OutNum").val();
+                var key = $("#key").val();
+                var deviceid = $("#deviceid").val();
+                var datas = { InNum: inNum, OutNum: OutNum, DataDateTime: times };
                 //var Params = $("#Param").val();
                 //alert(times);
+                
+                if (key == "" || key == null) {
+                    $("#key").focus();
+                    alert("key不能为空！");
+                    return;
+                }
+                if (deviceid == "" || deviceid == null) {
+                    $("#deviceid").focus();
+                    alert("deviceid不能为空！");
+                    return;
+                }
+                if (inNum == "" || inNum == null) {
+                    alert("InNum不能为空！");
+                    $("#InNum").focus();
+                    return;
+                }
+                if (OutNum == "" || OutNum == null) {
+                    alert("OutNum不能为空！");
+                    $("#OutNum").focus();
+                    return;
+                }
                 PostData(urls, types, datas);
 
                 start();
